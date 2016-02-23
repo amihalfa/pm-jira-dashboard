@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="global-layout">
+
+<head>
+    <title>Dashboard</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="js/diag.js" />
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-3">
+                <h2 th:text="${sprint.name}">Nom du Sprint</h2>
+                <h3>
+                    <span th:text="${#dates.format(sprint.startDate, 'dd MMMM') }">12/12/2015</span> -
+                    <span th:text="${#dates.format(sprint.endDate, 'dd MMMM')}">12/12/2015</span>
+                </h3>
+                <dl>
+                    <th:block th:each="issue : ${sprint.issues}">
+                        <dt>
+                            <div class="points-badge" th:switch="${issue.status}">
+                                <span th:case="${issue.status.DONE}" class="label label-pill label-success" th:if="${issue.children.isEmpty()}" th:text="${issue.complexity}">10</span>
+                                <span th:case="${issue.status.IN_PROGRESS}" class="label label-pill label-warning" th:if="${issue.children.isEmpty()}" th:text="${issue.complexity}">10</span>
+                                <span th:case="${issue.status.OPEN}" class="label label-pill label-default" th:if="${issue.children.isEmpty()}" th:text="${issue.complexity}">10</span>
+                            </div>
+                            <span th:text="${issue.key}" th:title="${issue.title}">APP-123456</span>
+                            <span class="badge float-right" th:if="${(issue.done or issue.inProgress) and issue.children.isEmpty()}" th:text="${issue.assignee.trigram}">AHA</span>
+                        </dt>
+                        <dd th:each="subTask : ${issue.children}">
+
+                            <div class="points-badge" th:switch="${subTask.status}">
+                                <span th:case="${subTask.status.DONE}" class="label label-pill label-success" th:text="${subTask.complexity}">6</span>
+                                <span th:case="${subTask.status.IN_PROGRESS}" class="label label-pill label-warning" th:text="${subTask.complexity}">6</span>
+                                <span th:case="${subTask.status.OPEN}" class="label label-pill label-default" th:text="${subTask.complexity}">6</span>
+                            </div>
+                            <span class="indent" th:text="${subTask.key}" th:title="${subTask.title}">APP-23456</span>
+                            <span class="badge float-right" th:if="${(subTask.done or subTask.inProgress)}" th:text="${subTask.assignee.trigram}">AHA</span>
+                        </dd>
+                    </th:block>
+                </dl>
+            </div>
+            <div class="col-md-9">
+                <div id="container" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-3 big">
+                <p class="center-text"><b>Fait :</b> <span th:text="${stats.donePoints}">123</span> points </p>
+                <p class="center-text"><b>Total :</b> <span th:text="${stats.totalPoints}">456</span> points</p>
+            </div>
+            <div class="col-md-9 big">
+                <p style="color: #990033; font-weight: bold" class="center-text">Avancement : <th:block th:text="${#numbers.formatDecimal(stats.percentage*100, 0, 2)}"></th:block> %</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

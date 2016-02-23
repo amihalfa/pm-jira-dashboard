@@ -1,0 +1,24 @@
+body {
+    padding-top: 70px;
+    padding-bottom: 30px;
+}
+
+.big {
+    font-size: x-large;
+}
+.center-text {
+    text-align: center;
+}
+
+.indent {
+    display: inline-block;
+    padding-left: 20px;
+}
+.points-badge {
+    display: inline-block;
+    width: 40px;
+}
+
+.float-right {
+    float: right;
+}

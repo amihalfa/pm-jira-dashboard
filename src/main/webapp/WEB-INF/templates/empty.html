@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="global-layout">
+
+<head>
+    <title>Pas de projet</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="jumbotron">
+        <h1>Pas de sprint en cours :(</h1>
+        <p class="lead" >
+            Oops ! Il n'y a pas de sprint actif trouvé.
+            Soit les développeurs sont dans cette phase d'ennui qu'est le Kanban,
+            soit il y a un problème de configuration dans JIRA.
+        </p>
+        <p>
+            <a class="btn btn-lg btn-success" href="https://priceminister.atlassian.net/login" role="button">Accéder à JIRA</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
