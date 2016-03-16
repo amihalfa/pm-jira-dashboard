@@ -1,6 +1,6 @@
 $(function () {
     $.ajax({
-        url :'/ajax/points',
+        url :contextPath + '/ajax/points',
         dataType : 'json'
     }).done(function(data){
         $('#container').highcharts({

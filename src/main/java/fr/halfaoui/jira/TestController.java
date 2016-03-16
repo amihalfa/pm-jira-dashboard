@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author amirouche
  */
@@ -38,13 +41,15 @@ public class TestController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String dashboard(ModelMap modelMap) {
+    public String dashboard(ModelMap modelMap, HttpServletRequest request,
+                            HttpServletResponse response) {
         Sprint sprint = sprintService.getActiveSprint(boardId);
         if(sprint == null) {
             return "empty";
         }
         modelMap.addAttribute("sprint", sprint);
         modelMap.addAttribute("stats", statsService.computeStats(sprint));
+        modelMap.addAttribute("contextPath", request.getContextPath());
         sprintSession.setSprint(sprint);
         return "index";
 
