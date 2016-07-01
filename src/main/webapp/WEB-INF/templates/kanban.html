@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="global-layout">
+
+<head>
+    <title>Kanban</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <h2 class="center-text" th:text="${sprint.name}">Nom du Sprint</h2>
+        <h3 class="center-text">
+            <span th:text="${#dates.format(sprint.startDate, 'dd MMMM') }">12/12/2015</span> -
+            <span th:text="${#dates.format(sprint.endDate, 'dd MMMM')}">12/12/2015</span>
+        </h3>
+
+        <p class="center-text h3 title-padding">Nombre de tâches faites :</p>
+        <p class="center-text number"><span th:text="${stats.doneTasks}">123</span></p>
+
+        <p class="center-text h3 title-padding">Nombre total de tâches :</p>
+        <p class="center-text number"><span th:text="${stats.totalTasks}">456</span></p>
+    </div>
+</div>
+</body>
+</html>

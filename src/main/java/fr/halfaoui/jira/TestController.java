@@ -52,7 +52,20 @@ public class TestController {
         modelMap.addAttribute("contextPath", request.getContextPath());
         sprintSession.setSprint(sprint);
         return "index";
+    }
 
+    @RequestMapping(value = "/kanban", method = RequestMethod.GET)
+    public String kanban(ModelMap modelMap, HttpServletRequest request,
+                            HttpServletResponse response) {
+        Sprint sprint = sprintService.getActiveSprint(boardId);
+        if(sprint == null) {
+            return "empty";
+        }
+        modelMap.addAttribute("sprint", sprint);
+        modelMap.addAttribute("stats", statsService.computeStats(sprint));
+        modelMap.addAttribute("contextPath", request.getContextPath());
+        sprintSession.setSprint(sprint);
+        return "kanban";
     }
 
 

@@ -22,3 +22,14 @@ body {
 .float-right {
     float: right;
 }
+
+.number {
+    font-size: 100px;
+    color:#990033;
+    font-weight: bolder;
+}
+
+.title-padding {
+    font-size: 50px;
+    padduing-top:40px;
+}

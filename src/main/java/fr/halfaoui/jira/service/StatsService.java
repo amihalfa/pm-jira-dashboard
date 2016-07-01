@@ -41,9 +41,12 @@ public class StatsService {
                     .filter(Issue::isDone)
                     .mapToLong(Issue::getComplexity)
                     .reduce(0, (a, b) -> a + b);
-
+            long totalTasks = getAllTasks(sprint).stream().count();
+            long doneTasks = getAllTasks(sprint).stream().filter(Issue::isDone).count();
             stats.setDonePoints(done);
             stats.setTotalPoints(total);
+            stats.setDoneTasks(doneTasks);
+            stats.setTotalTasks(totalTasks);
         }
         return stats;
     }
